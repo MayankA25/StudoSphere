@@ -9,6 +9,9 @@ const worker = new Worker("mailQueue", async(job)=>{
     await sendMail(senderMail, recipient, accessToken, refreshToken, subject, message, cc, bcc, attachment);
 }, { connection })
 
+worker.on("ready", (job)=>{
+    console.log("Worker....")
+})
 
 worker.on("completed", (job)=>{
     console.log("Worker: Email Sent Successfully: ", job.data.recipient)
