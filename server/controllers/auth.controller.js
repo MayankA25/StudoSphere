@@ -2,7 +2,7 @@ import { User } from "../models/User.js";
 
 export const callback = (req, res) => {
   console.log(req.session.passport);
-  return res.redirect(process.env.NODE_ENV == "production" ? "https://studosphere.onrender.com/":"http://localhost:5173/")
+  return res.redirect(process.env.NODE_ENV != "development" ? "https://studosphere.onrender.com/":"http://localhost:5173/")
 };
 
 export const getUser = (req, res) => {
