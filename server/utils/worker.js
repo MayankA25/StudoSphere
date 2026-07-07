@@ -2,6 +2,7 @@ import { Worker } from "bullmq";
 import { connection } from "./redis.js";
 import { sendMail } from "./email.js";
 
+console.log("Worker Started");
 
 const worker = new Worker("mailQueue", async(job)=>{
     const { senderMail, recipient, accessToken, refreshToken, subject, message, cc , bcc, attachment } = job.data;
