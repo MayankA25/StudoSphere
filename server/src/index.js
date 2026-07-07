@@ -75,7 +75,7 @@ app.use("/api/job", jobRouter)
 
 
 
-if (process.env.NODE_ENV != "development") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "..", "client", "dist")));
 
   app.use("*name",(req, res) => {
