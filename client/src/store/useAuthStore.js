@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 import { uploadAttachments } from "../utils/uploadFile";
 
-const BASE_URL = import.meta.env.MODE === "production" ?"https://studosphere-1.onrender.com" : "http://localhost:5000";
+const BASE_URL = import.meta.env.MODE === "production" ?"https://studosphere.onrender.com" : "http://localhost:5000";
 
 export const useAuthStore = create((set, get) => ({
   user: null,
