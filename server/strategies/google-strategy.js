@@ -26,7 +26,7 @@ passport.use(
     {
       clientID: process.env.OAUTH_CLIENT_ID,
       clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      callbackURL: process.env.NODE_ENV == "production" ? "https://studosphere.onrender.com/api/auth/callback" : "http://localhost:5000/api/auth/callback",
+      callbackURL: process.env.NODE_ENV == "production" ? "https://studosphere-2.onrender.com/api/auth/callback" : "http://localhost:5000/api/auth/callback",
       scope: ["profile", "email", "https://www.googleapis.com/auth/calendar.events", "https://mail.google.com/"],
       accessType: "offline",
       prompt: "consent",
