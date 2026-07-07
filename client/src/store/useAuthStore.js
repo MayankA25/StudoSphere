@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 import { uploadAttachments } from "../utils/uploadFile";
 
-const BASE_URL = import.meta.env.MODE === "production" ?"https://studosphere.onrender.com" : "http://localhost:5000";
+const BASE_URL = import.meta.env.MODE === "production" ?"https://studosphere-2.onrender.com" : "http://localhost:5000";
 
 export const useAuthStore = create((set, get) => ({
   user: null,
@@ -52,7 +52,7 @@ export const useAuthStore = create((set, get) => ({
 
   login: async () => {
     try {
-      window.location.href = import.meta.env.MODE === "production" ? "https://studosphere.onrender.com/api/auth/login": "http://localhost:5000/api/auth/login";
+      window.location.href = import.meta.env.MODE === "production" ? "https://studosphere-2.onrender.com/api/auth/login": "http://localhost:5000/api/auth/login";
     } catch (e) {
       // console.log(e);
     }
