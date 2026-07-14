@@ -13,6 +13,7 @@ export default function Jobs() {
   const {
     getJobs,
     jobs,
+    // jobsCopy,
     edit,
     setEdit,
     setJobDetails,

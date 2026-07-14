@@ -54,10 +54,10 @@ app.use(passport.session());
 // });
 // app.set('etag', false);
 
-app.use((req, res, next) => {
-  res.header('Cache-Control', 'no-store');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Cache-Control', 'no-store');
+//   next();
+// });
 const PORT = process.env.PORT;
 
 app.use("/api/auth", authRouter);

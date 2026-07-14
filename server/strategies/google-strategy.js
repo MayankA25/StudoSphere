@@ -102,8 +102,9 @@ passport.serializeUser((obj, done) => {
 passport.deserializeUser(async (obj, done) => {
   try {
     const foundUser = await User.findOne({ email: obj.user.email });
-    if (!foundUser) throw new Error("Unauthenticated");
-    if (foundUser) return done(null, obj.user);
+    console.log("Found User: ", foundUser);
+    if (!foundUser) return done("Unauthenticated", null);
+    return done(null, obj);
   } catch (e) {
     return done(e, null);
   }

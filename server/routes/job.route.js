@@ -5,7 +5,7 @@ import { checkAdminLogin } from "../middleware/admin.middleware.js";
 
 const jobRouter = Router();
 
-jobRouter.get("/getjobs",checkLogin, checkAdminLogin, getJobs)
+jobRouter.get("/getjobs",checkLogin, getJobs)
 jobRouter.post("/addjob",checkLogin,checkAdminLogin, addJob);
 jobRouter.put("/editjob",checkLogin,checkAdminLogin, editJob);
 jobRouter.delete("/deletejob",checkLogin,checkAdminLogin, deleteJob);

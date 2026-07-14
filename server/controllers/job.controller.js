@@ -1,18 +1,42 @@
 import { Job } from "../models/Job.js";
 
-export const getJobs = async(req, res)=>{
-    try{
-        if(req.session.passport.user.user.isHead){
-            const jobs = await Job.find().populate('applicants').populate('shortListed').populate('rejectedUsers');
-            return res.status(200).json({ jobs });
-        }
-        const jobs = await Job.find();
-        return res.status(200).json({ jobs })
-    }catch(e){
-        console.log(e)
-        return res.status(400).json({ msg: "Error While Getting Jobs" })
+export const getJobs = async (req, res) => {
+  try {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth();
+    const date = new Date().getDate();
+    const dateTime = new Date(year, month, date, 0, 0, 0, 0);
+    console.log("User: ", req.session.passport);
+    if (req.session.passport.user.user.isHead) {
+      const jobs = await Job.find({
+        deadline: { $gte: new Date(dateTime) }
+      })
+        .populate("applicants")
+        .populate("shortListed")
+        .populate("rejectedUsers");
+      await Job.deleteMany({
+        deadline: { $lt: new Date(dateTime) },
+      });
+      return res.status(200).json({ jobs });
     }
-}
+    
+
+    const jobs = await Job.find({
+      deadline: { $gte: new Date(dateTime) },
+    });
+    await Job.deleteMany({
+      deadline: { $lt: new Date(dateTime) },
+    });
+    return res.status(200).json({ jobs });
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ msg: "Error While Getting Jobs" });
+  }
+};
+
+// export const getJobs = async(req, res)=>{
+//   res.status(200).json({ msg: "Hello World" });
+// }
 
 export const addJob = async (req, res) => {
   const {

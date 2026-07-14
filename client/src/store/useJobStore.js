@@ -35,7 +35,7 @@ export const useJobStore = create((set, get) => ({
     set({ skills });
   },
 
-  getJobs: async () => {
+getJobs: async () => {
     const companiesCopy = [...get().companies];
     let inReviewApplicants = 0;
     let shortListedApplicants = 0;
@@ -43,7 +43,11 @@ export const useJobStore = create((set, get) => ({
     let totalSalary = 0;
     let totalCgpa = 0
     try {
-      const response = await axiosInstance.get("/job/getjobs");
+     console.log("1. Before request");
+
+    const response = await axiosInstance.get("/job/getjobs");
+
+    console.log("2. Response received");
       // // // // console.log(response.data.jobs.reverse());
       let jobs = [...response.data.jobs];
       // if(!user.isHead ){
@@ -80,20 +84,22 @@ export const useJobStore = create((set, get) => ({
           totalCgpa += job.cgpa
         })
           const avgSalary = totalSalary/jobs.length;
-          const avgCgpa = Number.parseFloat(`${`${totalCgpa/jobs.length}`.split(".")[0]}.${`${totalCgpa/jobs.length}`.split(".")[1].slice(0, 2)}`);
+          const avgCgpa = Number.parseFloat(`${`${totalCgpa/jobs.length}`?.split(".")[0]}.${`${totalCgpa/jobs.length}`?.split(".")[1]?.slice(0, 2)}`);
           // console.log("Companies: ", companiesCopy);
           // console.log("In Review: ", inReviewApplicants);
           // console.log("Shortlisted: ", shortListedApplicants);
           // console.log("Rejected: ", rejectedApplicants);
           // console.log("Salary: ", avgSalary);
           // console.log("CGPA: ", avgCgpa);
+          console.log("Store after set:", get().jobs);
           set({ jobs: response.data.jobs, jobsCopy: response.data.jobs, companies: companiesCopy, inReviewApplicants: inReviewApplicants, shortListedApplicants: shortListedApplicants, rejectedApplicants: rejectedApplicants, averageSalary: avgSalary, averageCgpa: avgCgpa });
           // set({  companies: companiesCopy, inReviewApplicants, shortListedApplicants, rejectedApplicants, averageSalary: `${(totalSalary/jobs.length).toString().split(".")[0]}.${(totalSalary/jobs.length).toString().split(".")[1].slice(0,2)}`, averageCgpa: `${(totalCgpa/jobs.length).toString().split(".")[0]}.${(totalCgpa/jobs.length).toString().split(".")[1].slice(0,2)}` });
+
+console.log("Store after set:", get().jobs);
     } catch (e) {
       // // // console.log(e);
     }
   },
-
   addJob: async (jobDetails) => {
     const newSkills = [];
     for(let i = 0; i<jobDetails.skills.length; i++){
